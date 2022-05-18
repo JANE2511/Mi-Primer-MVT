@@ -2,7 +2,6 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.template import loader
 from django.shortcuts import render
 from familia.forms import PersonaForm
-
 from familia.models import Persona
 
 def index(request):
@@ -15,11 +14,7 @@ def index(request):
 
 
 def agregar(request):
-    '''
-    TODO: agregar un mensaje en el template index.html que avise al usuario que 
-    la persona fue cargada con éxito
-    '''
-
+      
     if request.method == "POST":
         form = PersonaForm(request.POST)
         if form.is_valid():
@@ -27,13 +22,15 @@ def agregar(request):
             nombre = form.cleaned_data['nombre']
             apellido = form.cleaned_data['apellido']
             email = form.cleaned_data['email']
-            Persona(nombre=nombre, apellido=apellido, email=email).save()
-
+            fecha= form.cleaned_data['fecha']
+            edad= form.cleaned_data['edad']
+            Persona(nombre=nombre, apellido=apellido, email=email, edad=edad,  fecha=fecha).save()
             return HttpResponseRedirect("/familia/")
+
     elif request.method == "GET":
         form = PersonaForm()
     else:
-        return HttpResponseBadRequest("Error no conzco ese metodo para esta request")
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
 
     
     return render(request, 'familia/form_carga.html', {'form': form})
@@ -50,7 +47,7 @@ def borrar(request, identificador):
             persona.delete()
         return HttpResponseRedirect("/familia/")
     else:
-        return HttpResponseBadRequest("Error no conzco ese metodo para esta request")
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
 
 
 def actualizar(request, identificador):
