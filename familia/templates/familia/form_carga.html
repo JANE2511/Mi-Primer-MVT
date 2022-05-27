@@ -20,7 +20,9 @@
       <form action="/familia/agregar/" method="post">
          {% csrf_token %} 
          {% bootstrap_form form%}
-         {% bootstrap_button "Guardar" button_type="submit" button_class="btn-primary" %}
+         <!-- {% bootstrap_button "Guardar" button_type="submit" button_class="btn-primary" %} -->
+         {% bootstrap_button "Guardar" button_type="submit" button_class="btn btn-info" %}
+         
       </form>
      </div>
    </div>
