@@ -1,0 +1,36 @@
+{% extends "familia/index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<body style="background-color:#131212;">
+</body>
+<br>
+</br>
+<div class="container">
+   <div class="row">
+     <div class="col">
+      <h1 style = "font-family:Brush Script MT; color:#d1e30ce3"> Cargar un Familiar</h1>
+     </div>
+     </div>
+     <div class="row" style="color: white;">
+     <div class="col"style="color: white;">
+      {% if actualizar %}
+          <form action="{% url  'actualizar_action' %}" method="post">
+      {% else %}     
+          <form action="{% url  'agregar'%}" method="post">
+      {% endif %}
+
+      {% csrf_token %} 
+      {% bootstrap_form form %}
+
+      {% if actualizar %}
+         {% bootstrap_button "Actualizar" button_type="submit" button_class="btn-success" %} 
+      {% else %}
+         {% bootstrap_button "Guardar" button_type="submit" button_class="btn-primary" %}
+         {% endif %}
+      </form>
+     </div>
+   </div>
+ </div>
+{% endblock %}
